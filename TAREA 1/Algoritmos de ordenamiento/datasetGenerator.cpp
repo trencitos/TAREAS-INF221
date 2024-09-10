@@ -13,8 +13,6 @@ void generarDataset(const string& nombreArchivo, int tamaño) {
         return;
     }
 
-    srand(static_cast<unsigned>(time(nullptr)));
-
     for (int i = 0; i < tamaño; ++i) {
         archivo << rand() % 10000 << endl;
     }
@@ -25,6 +23,7 @@ void generarDataset(const string& nombreArchivo, int tamaño) {
 
 int main() {
     vector<int> tamaños = {100, 1000, 10000};
+    srand(static_cast<unsigned>(time(nullptr)));
 
     for (int tamaño : tamaños) {
         for (int i = 1; i <= 5; ++i) {

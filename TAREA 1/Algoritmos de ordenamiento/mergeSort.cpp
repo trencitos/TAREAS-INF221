@@ -20,18 +20,26 @@ void leerDataset(const string& nombreArchivo, vector<int>& lista) {
     archivo.close();
 }
 
-void selectionSort (vector<int>& vec) {
+vector<int> mergeSort (vector<int> vec) {
     int size = vec.size();
-    for (int i = 0; i < size - 1; i++) {
-        int min = i;
-        for (int j = i + 1; j < size; j++) {
-            if (vec[j] < vec[min]) min = j;
-        }
-        swap(vec[min], vec[i]);
-    }
+    int m = size/2;
+
+    if (size <= 1) {
+        return vec;
+    } 
+
+    vector<int> v1(vec.begin(), vec.begin() + m);
+    vector<int> v2(vec.begin() + m, vec.end());
+
+    v1 = mergeSort(v1);
+    v2 = mergeSort(v2);
+    vector<int> v(v1.size() + v2.size());
+    merge(v1.begin(), v1.end(), v2.begin(), v2.end(), v.begin());
+
+    return v;
 }
 
-int main () {
+int main() {
     vector<int> lista;
 
     string nombreArchivo = "dataset_100_1.txt";  // Cambia este nombre según el dataset que quieras leer
@@ -44,10 +52,10 @@ int main () {
     cout << "\n-----------------------------------------------";
     cout << endl;
 
-    auto inicio = chrono::high_resolution_clock::now();
-    selectionSort(lista);
-    auto final = chrono::high_resolution_clock::now();
-    chrono::duration<double> duracion= final - inicio;
+    auto inicio = std::chrono::high_resolution_clock::now();
+    lista = mergeSort(lista);
+    auto fin = std::chrono::high_resolution_clock::now();
+    chrono::duration<double> duracion = fin - inicio;
 
     cout << "El vector ordenado: ";
     for (int i = 0; i < lista.size(); i++) {

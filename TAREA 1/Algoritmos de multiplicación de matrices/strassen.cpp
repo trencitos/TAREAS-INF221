@@ -7,6 +7,7 @@ using namespace std;
 
 /*
 El siguiente algoritmo de Strassen fue sacado de:
+ChatGPT !
 https://www.geeksforgeeks.org/strassens-matrix-multiplication/
 */
 
